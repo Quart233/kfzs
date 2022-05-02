@@ -42,7 +42,7 @@ function menu(callbackSetList, config, lazy) {
     if(!lazy) callbackSetList([{icon: config.icon, title:config.title, description: config.description }].concat(defaults))
 }
 
-exports = {
+window.exports = {
     'kfzs': {
         mode: 'list',
         args: {
