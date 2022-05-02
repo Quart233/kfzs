@@ -19,7 +19,7 @@ function nextStep(callbackSetList, config, lazy) {
             icon: config.nextIcon, title: config.next, description: config.nextDescription
         }
     ]
-    window.utools.setSubInput(val => {
+    utools.setSubInput(val => {
         config.title = val.text
         callbackSetList([{icon: config.icon, title: config.title, description: config.description }].concat(defaults))
     }, config.placeholder)
@@ -35,14 +35,14 @@ function menu(callbackSetList, config, lazy) {
             icon: config.backIcon, title: config.back, description: config.backDescription
         }
     ]
-    window.utools.setSubInput(val => {
+    utools.setSubInput(val => {
         config.title = val.text
         callbackSetList([{icon: config.icon, title:config.title, description: config.description }].concat(defaults))
     }, config.placeholder)
     if(!lazy) callbackSetList([{icon: config.icon, title:config.title, description: config.description }].concat(defaults))
 }
 
-window.exports = {
+exports = {
     'kfzs': {
         mode: 'list',
         args: {
@@ -86,7 +86,7 @@ window.exports = {
                         break;
                     case "添加快捷短语完毕":
                         utools.showNotification('快捷短语添加成功')
-                        window.utools.outPlugin()
+                        utools.outPlugin()
                     default:
                         break;
                 }
