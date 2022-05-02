@@ -1,0 +1,11 @@
+{
+	"logo": "logo.jpg",
+    "preload": "preload.js",
+	"features": [
+		{
+		  "code": "kfzs",
+		  "explain": "快捷短语管理",
+			"cmds":["客服助手"]
+		}
+	]
+}
