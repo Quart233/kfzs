@@ -2,6 +2,11 @@
 	"logo": "logo.jpg",
     "preload": "preload.js",
 	"features": [
+        {
+            "code": "search",
+            "explain": "快速查找快捷短语并粘贴",
+              "cmds":["短语搜索"]
+        },
 		{
 		  "code": "kfzs",
 		  "explain": "快捷短语管理",

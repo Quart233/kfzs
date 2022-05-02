@@ -85,11 +85,23 @@ window.exports = {
                         }
                         break;
                     case "添加快捷短语完毕":
+                        utools.db.put({
+                            _id: menuCache[0].title,
+                            data: menuCache[1].title
+                        })
                         utools.showNotification('快捷短语添加成功')
                         utools.outPlugin()
                     default:
                         break;
                 }
+            }
+        }
+    },
+    'search': {
+        mode: 'list',
+        args: {
+            search: (action, searchWord, callbackSetList) => {
+                utools.db.promises.allDocs(searchWord).then(docs => callbackSetList(docs.map(doc => Object({title: doc.data, description: doc._id}))))
             }
         }
     }
