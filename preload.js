@@ -102,6 +102,10 @@ window.exports = {
         args: {
             search: (action, searchWord, callbackSetList) => {
                 utools.db.promises.allDocs(searchWord).then(docs => callbackSetList(docs.map(doc => Object({title: doc.data, description: doc._id}))))
+            },
+            select: (action, itemData, callbackSetList) => {
+                utools.copyText(itemData.title)
+                utools.hideMainWindow()
             }
         }
     }
