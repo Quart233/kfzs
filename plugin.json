@@ -13,6 +13,11 @@
 			"cmds":["短语新增"]
 		},
 		{
+			"code": "delete",
+            "explain": "移除快捷短语从客服助手",
+			"cmds":["短语删除"]
+		},
+		{
 		  "code": "kfzs",
 		  "explain": "快捷短语管理",
 			"cmds":["客服助手"]

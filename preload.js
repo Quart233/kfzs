@@ -17,6 +17,7 @@ features = [
 ]
 
 let menuCache = []
+let inputCache = ""
 
 function nextStep(callbackSetList, config, lazy) {
     let defaults = [
@@ -59,12 +60,31 @@ window.exports = {
                     case "新增快捷短语":
                         utools.redirect("短语新增")
                         break;
+                    case "移除快捷短语":
+                        utools.redirect("短语删除")
+                        break;
                     case "快速查找快捷短语并粘贴":
                         utools.redirect("短语搜索")
                         break;
                     default:
                         break;
                 }
+            }
+        }
+    },
+    'delete': {
+        mode: 'list',
+        args: {
+            enter: (action, callbackSetList) => {
+                inputCache = ""
+            },
+            search: (action, searchWord, callbackSetList) => {
+                inputCache = searchWord
+                utools.db.promises.allDocs(searchWord).then(docs => callbackSetList(docs.map(doc => Object({title: doc.data, description: doc._id}))))
+            },
+            select: (action, itemData, callbackSetList) => {
+                utools.db.remove(itemData.description)
+                utools.db.promises.allDocs(inputCache).then(docs => callbackSetList(docs.map(doc => Object({title: doc.data, description: doc._id}))))
             }
         }
     },
