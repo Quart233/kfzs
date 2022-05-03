@@ -51,20 +51,34 @@ window.exports = {
             },
             select: (action, itemData, callbackSetList) => {
                 switch (itemData.description) {
+                    case "新增快捷短语":
+                        utools.redirect("短语新增")
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    },
+    'add': {
+        mode: 'list',
+        args: {
+            enter: (action, callbackSetList) => {
+                menuCache.push({
+                    icon: "./icons/编号.svg",
+                    title: "",
+                    placeholder: "输入快捷短语编码",
+                    description: "快捷短语编码",
+                    nextIcon: "./icons/下一步.svg",
+                    next: "下一步",
+                    nextDescription: "设置快捷短语内容"
+                })
+                nextStep(callbackSetList, menuCache[0], true)
+            },
+            select: (action, itemData, callbackSetList) => {
+                switch (itemData.description) {
                     case "设置快捷短语编码":
                         nextStep(callbackSetList, menuCache[0], false)
-                        break;
-                    case "新增快捷短语":
-                        menuCache.push({
-                            icon: "./icons/编号.svg",
-                            title: "",
-                            placeholder: "输入快捷短语编码",
-                            description: "快捷短语编码",
-                            nextIcon: "./icons/下一步.svg",
-                            next: "下一步",
-                            nextDescription: "设置快捷短语内容"
-                        })
-                        nextStep(callbackSetList, menuCache[0], true)
                         break;
                     case "设置快捷短语内容":
                         if (!menuCache[1]) {

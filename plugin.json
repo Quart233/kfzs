@@ -5,8 +5,13 @@
         {
             "code": "search",
             "explain": "快速查找快捷短语并粘贴",
-              "cmds":["短语搜索"]
+			"cmds":["短语搜索"]
         },
+		{
+			"code": "add",
+            "explain": "添加快捷短语到客服助手",
+			"cmds":["短语新增"]
+		},
 		{
 		  "code": "kfzs",
 		  "explain": "快捷短语管理",
