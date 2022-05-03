@@ -8,6 +8,11 @@ features = [
         icon: "./icons/删除.svg",
         title: "删除",
         description: "移除快捷短语"
+    },
+    {
+        icon: "./icons/文件-查找内容.svg",
+        title: "搜索",
+        description: "快速查找快捷短语并粘贴"
     }
 ]
 
@@ -53,6 +58,9 @@ window.exports = {
                 switch (itemData.description) {
                     case "新增快捷短语":
                         utools.redirect("短语新增")
+                        break;
+                    case "快速查找快捷短语并粘贴":
+                        utools.redirect("短语搜索")
                         break;
                     default:
                         break;
