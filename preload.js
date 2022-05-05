@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 features = [
     {
         icon: "./icons/添加.svg",
@@ -13,6 +15,11 @@ features = [
         icon: "./icons/文件-查找内容.svg",
         title: "搜索",
         description: "快速查找快捷短语并粘贴"
+    },
+    {
+        icon: "./icons/导出.svg",
+        title: "导出",
+        description: "导出快捷短语为JSON文件"
     }
 ]
 
@@ -48,6 +55,22 @@ function menu(callbackSetList, config, lazy) {
     if(!lazy) callbackSetList([{icon: config.icon, title:config.title, description: config.description }].concat(defaults))
 }
 
+function exportWords() {
+    let words = JSON.stringify(utools.db.allDocs()," ", 2)
+    let d1 = new Date().toISOString().replaceAll(':', '-')
+    let defaultPath = `${utools.getPath('downloads')}/${d1}.json`
+    let filePath = utools.showSaveDialog({ 
+        title: '导出快捷短语',
+        defaultPath: defaultPath,
+        buttonLabel: '导出'
+    })
+    fs.writeFile(filePath, words, function(err) {
+        if(err) {
+            alert(err.message)
+        }
+    })
+}
+
 window.exports = {
     'kfzs': {
         mode: 'list',
@@ -65,6 +88,9 @@ window.exports = {
                         break;
                     case "快速查找快捷短语并粘贴":
                         utools.redirect("短语搜索")
+                        break;
+                    case "导出快捷短语为JSON文件":
+                        exportWords()
                         break;
                     default:
                         break;
