@@ -64,11 +64,15 @@ function exportWords() {
         defaultPath: defaultPath,
         buttonLabel: '导出'
     })
-    fs.writeFile(filePath, words, function(err) {
-        if(err) {
-            alert(err.message)
-        }
-    })
+    if(filePath) {
+        fs.writeFile(filePath, words, function(err) {
+            if(err) {
+                alert(err.message)
+            }
+        })
+    } else {
+        utools.outPlugin()
+    }
 }
 
 window.exports = {
