@@ -122,16 +122,36 @@ window.exports = {
         mode: 'list',
         args: {
             enter: (action, callbackSetList) => {
-                menuCache.push({
-                    icon: "./icons/编号.svg",
-                    title: "",
-                    placeholder: "输入快捷短语编码",
-                    description: "快捷短语编码",
-                    nextIcon: "./icons/下一步.svg",
-                    next: "下一步",
-                    nextDescription: "设置快捷短语内容"
-                })
-                nextStep(callbackSetList, menuCache[0], true)
+                switch (action.type) {
+                    case "over":
+                        menuCache.push({
+                            icon: "./icons/编号.svg",
+                            title: "",
+                            placeholder: "输入快捷短语编码",
+                            description: "快捷短语编码",
+                            nextIcon: "./icons/下一步.svg",
+                            next: "下一步",
+                            nextDescription: "添加快捷短语完毕"
+                        })
+                        menuCache.push({
+                            title: action.payload
+                        })
+                        nextStep(callbackSetList, menuCache[0], true)
+                        break;
+                
+                    default:
+                        menuCache.push({
+                            icon: "./icons/编号.svg",
+                            title: "",
+                            placeholder: "输入快捷短语编码",
+                            description: "快捷短语编码",
+                            nextIcon: "./icons/下一步.svg",
+                            next: "下一步",
+                            nextDescription: "设置快捷短语内容"
+                        })
+                        nextStep(callbackSetList, menuCache[0], true)
+                        break;
+                }
             },
             select: (action, itemData, callbackSetList) => {
                 switch (itemData.description) {
@@ -158,8 +178,8 @@ window.exports = {
                         break;
                     case "添加快捷短语完毕":
                         utools.db.put({
-                            _id: menuCache[0].title,
-                            data: menuCache[1].title
+                            _id: menuCache[0].title, // 编码
+                            data: menuCache[1].title // 短语内容
                         })
                         utools.showNotification('快捷短语添加成功')
                         utools.outPlugin()

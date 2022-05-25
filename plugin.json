@@ -10,7 +10,13 @@
 		{
 			"code": "add",
             "explain": "添加快捷短语到客服助手",
-			"cmds":["短语新增"]
+			"cmds":[
+				"短语新增",
+				{
+					"type": "over",
+					"label": "添加快捷短语"
+				}
+			]
 		},
 		{
 			"code": "delete",
