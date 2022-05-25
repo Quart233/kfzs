@@ -113,8 +113,15 @@ window.exports = {
                 utools.db.promises.allDocs(searchWord).then(docs => callbackSetList(docs.map(doc => Object({title: doc.data, description: doc._id}))))
             },
             select: (action, itemData, callbackSetList) => {
-                utools.db.remove(itemData.description)
-                utools.db.promises.allDocs(inputCache).then(docs => callbackSetList(docs.map(doc => Object({title: doc.data, description: doc._id}))))
+                switch (confirm(`是否删除短语 ${itemData.description}`)) {
+                    case true:
+                        utools.db.remove(itemData.description)
+                        utools.db.promises.allDocs(inputCache).then(docs => callbackSetList(docs.map(doc => Object({title: doc.data, description: doc._id}))))                                
+                        break;
+                
+                    default:
+                        break;
+                }
             }
         }
     },
