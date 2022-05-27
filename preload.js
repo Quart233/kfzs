@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-features = [
+const features = [
     {
         icon: "./icons/添加.svg",
         title: "添加",
@@ -20,6 +20,24 @@ features = [
         icon: "./icons/导出.svg",
         title: "导出",
         description: "导出快捷短语为JSON文件"
+    },
+    {
+        icon: "./icons/导入.svg",
+        title: "导入",
+        description: "从JSON文件导入快捷短语"
+    }
+]
+
+const importFeatures = [
+    {
+        icon: "./icons/删除.svg",
+        title: "清空",
+        description: "清空所有短语重新导入"
+    },
+    {
+        icon: "./icons/添加.svg",
+        title: "新增",
+        description: "只新增不覆盖"
     }
 ]
 
@@ -96,6 +114,8 @@ window.exports = {
                     case "导出快捷短语为JSON文件":
                         exportWords()
                         break;
+                    case "从JSON文件导入快捷短语":
+                        utools.redirect("短语导入")
                     default:
                         break;
                 }
@@ -118,7 +138,6 @@ window.exports = {
                         utools.db.remove(itemData.description)
                         utools.db.promises.allDocs(inputCache).then(docs => callbackSetList(docs.map(doc => Object({title: doc.data, description: doc._id}))))                                
                         break;
-                
                     default:
                         break;
                 }
@@ -206,6 +225,63 @@ window.exports = {
                 utools.hideMainWindow()
                 utools.copyText(itemData.title)
                 utools.simulateKeyboardTap('v', 'ctrl')
+            }
+        }
+    },
+    'import': {
+        mode: 'list',
+        args: {
+            enter: (action, callbackSetList) => {
+                callbackSetList(importFeatures)
+            },
+            select: (action, itemData, callbackSetList) => {
+                // 选择文档路径
+                let filePath = utools.showOpenDialog({
+                    filters: [{ 'name': '短语文件', extensions: ['json'] }],
+                    properties: ['openFile'],
+                    title: '导入快捷短语',
+                    defaultPath: "downloads",
+                    buttonLabel: '导入'
+                })
+
+                // 判断文档路径
+                if(filePath.length > 0) {
+                    fs.readFile(filePath.pop(), function(err, data) {
+                        if(err) {
+                            alert(err.message)
+                        } else {
+                            switch (itemData.description) {
+                                case "清空所有短语重新导入":
+                                    // 删除所有文档
+                                    if(confirm("选择清空将会删除所有短语！！！")) utools.db.allDocs().map(doc => utools.db.remove(doc._id))
+                                    // 导入文档
+                                    JSON.parse(data).map(doc => utools.db.put({
+                                        _id: doc._id,
+                                        data: doc.data
+                                    }))
+                                   break;
+                                case "只新增不覆盖":
+                                    // 导入文档
+                                    // JSON.parse(data).filter(doc => Object.keys(utools.db.get(doc._id)).length == 0).map(doc => utools.db.put({
+                                    //     _id: doc._id,
+                                    //     data: doc.data
+                                    // }))
+                                    JSON.parse(data).map(doc => utools.db.put({
+                                        _id: doc._id,
+                                        data: doc.data
+                                    }))
+                                    break;
+                                default:
+                                   break;
+                            }
+                            utools.outPlugin()
+                            utools.hideMainWindow()
+                        }
+                    })
+                } else {
+                    utools.outPlugin()
+                    utools.hideMainWindow()
+                }
             }
         }
     }

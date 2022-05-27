@@ -24,6 +24,11 @@
 			"cmds":["短语删除"]
 		},
 		{
+			"code": "import",
+            "explain": "从JSON文件导入快捷短语",
+			"cmds":["短语导入"]
+		},
+		{
 		  "code": "kfzs",
 		  "explain": "快捷短语管理",
 			"cmds":["客服助手"]
