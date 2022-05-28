@@ -209,6 +209,7 @@ window.exports = {
                         })
                         utools.showNotification('快捷短语添加成功')
                         utools.outPlugin()
+                        break;
                     default:
                         break;
                 }
