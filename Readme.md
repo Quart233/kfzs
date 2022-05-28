@@ -1,4 +1,4 @@
-<p align="center"><a href="https://netdata.cloud"><img style="height: 140px; width: 147px; " src="https://raw.githubusercontent.com/Quart233/kfzs/master/logo.png" alt="Netdata" width="300" /></a></p>
+<p align="center"><img src="https://raw.githubusercontent.com/Quart233/kfzs/master/logo.png" alt="kfzs" width="140" /></p>
 <h3 align="center">kfzs - 客服助手</h3>
 
 ## 简介
