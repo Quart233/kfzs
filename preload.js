@@ -93,6 +93,22 @@ function exportWords() {
     }
 }
 
+function addWordDirect(callbackSetList, action) {
+    menuCache.push({
+        icon: "./icons/编号.svg",
+        title: "",
+        placeholder: "输入快捷短语编码",
+        description: "快捷短语编码",
+        nextIcon: "./icons/下一步.svg",
+        next: "下一步",
+        nextDescription: "添加快捷短语完毕"
+    })
+    menuCache.push({
+        title: action.payload
+    })
+    nextStep(callbackSetList, menuCache[0], true)
+}
+
 window.exports = {
     'kfzs': {
         mode: 'list',
@@ -150,32 +166,24 @@ window.exports = {
             enter: (action, callbackSetList) => {
                 switch (action.type) {
                     case "over":
-                        menuCache.push({
-                            icon: "./icons/编号.svg",
-                            title: "",
-                            placeholder: "输入快捷短语编码",
-                            description: "快捷短语编码",
-                            nextIcon: "./icons/下一步.svg",
-                            next: "下一步",
-                            nextDescription: "添加快捷短语完毕"
-                        })
-                        menuCache.push({
-                            title: action.payload
-                        })
-                        nextStep(callbackSetList, menuCache[0], true)
+                        addWordDirect(callbackSetList, action)
                         break;
                 
                     default:
-                        menuCache.push({
-                            icon: "./icons/编号.svg",
-                            title: "",
-                            placeholder: "输入快捷短语编码",
-                            description: "快捷短语编码",
-                            nextIcon: "./icons/下一步.svg",
-                            next: "下一步",
-                            nextDescription: "设置快捷短语内容"
-                        })
-                        nextStep(callbackSetList, menuCache[0], true)
+                        if(action.payload) {
+                            addWordDirect(callbackSetList, action)
+                        } else {
+                            menuCache.push({
+                                icon: "./icons/编号.svg",
+                                title: "",
+                                placeholder: "输入快捷短语编码",
+                                description: "快捷短语编码",
+                                nextIcon: "./icons/下一步.svg",
+                                next: "下一步",
+                                nextDescription: "设置快捷短语内容"
+                            })
+                            nextStep(callbackSetList, menuCache[0], true)
+                        }
                         break;
                 }
             },
