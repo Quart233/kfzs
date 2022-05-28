@@ -253,12 +253,14 @@ window.exports = {
                             switch (itemData.description) {
                                 case "清空所有短语重新导入":
                                     // 删除所有文档
-                                    if(confirm("选择清空将会删除所有短语！！！")) utools.db.allDocs().map(doc => utools.db.remove(doc._id))
-                                    // 导入文档
-                                    JSON.parse(data).map(doc => utools.db.put({
-                                        _id: doc._id,
-                                        data: doc.data
-                                    }))
+                                    if(confirm("选择清空将会删除所有短语！！！")) {
+                                        utools.db.allDocs().map(doc => utools.db.remove(doc._id))
+                                        // 导入文档
+                                        JSON.parse(data).map(doc => utools.db.put({
+                                            _id: doc._id,
+                                            data: doc.data
+                                        }))
+                                    }
                                    break;
                                 case "只新增不覆盖":
                                     // 导入文档
